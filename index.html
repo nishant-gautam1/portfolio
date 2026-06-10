@@ -138,19 +138,24 @@
       position: relative;
       z-index: 2;
       font-family: var(--font-head);
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.5rem, 5vw, 3.5rem);
       font-weight: 700;
       color: var(--white);
-      letter-spacing: 6px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       display: flex;
-      gap: 5px;
-      overflow: hidden;
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 10px;
+      column-gap: 15px;
+      max-width: 90%;
+      margin: 0 auto;
     }
 
     .welcome-text span.word {
       display: flex;
-      margin-right: 18px;
+      overflow: hidden;
+      padding: 4px 0;
     }
 
     .welcome-char {
