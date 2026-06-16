@@ -707,143 +707,91 @@
       position: relative;
       width: 100%;
       display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-visual.reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .about-visual.reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Decorative shifting outline card behind the photo */
+    .about-visual::before {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: -16px;
+      width: 90%;
+      height: 100%;
+      border: 2px dashed rgba(91, 141, 239, 0.3);
+      border-radius: 24px;
+      z-index: 1;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    /* Glow backdrop behind the photo */
+    .about-visual::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 90%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(91, 141, 239, 0.15) 0%, transparent 70%);
+      z-index: 0;
+      filter: blur(30px);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .about-visual:hover::before {
+      transform: translate(8px, -8px);
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .about-visual:hover::after {
+      opacity: 1;
     }
 
     .about-image {
-      width: 80%;
+      width: 110%;
       aspect-ratio: 4/5;
       border-radius: 24px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--border);
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 2;
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .about-visual:hover .about-image {
       transform: translateY(-8px);
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(91, 141, 239, 0.15);
-    }
-
-    /* Decorative accent element */
-    .about-image::after {
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      width: 60px;
-      height: 60px;
-      border-radius: 0 24px 0 0;
-      border-top: 3px solid var(--accent);
-      border-right: 3px solid var(--accent);
-      opacity: 0.4;
-      transition: opacity 0.4s;
-    }
-
-    .about-visual:hover .about-image::after {
-      opacity: 0.8;
+      border-color: rgba(91, 141, 239, 0.6);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(91, 141, 239, 0.2);
     }
 
     .about-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(70%) brightness(0.9);
-      transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: grayscale(10%) brightness(1.0);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
     }
 
     .about-visual:hover .about-image img {
-      filter: grayscale(0%) brightness(1);
-      transform: scale(1.04);
-    }
-
-    .about-card {
-      background: rgba(17, 21, 32, 0.85);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.5rem;
-      position: absolute;
-      bottom: -40px;
-      left: -20px;
-      width: calc(100% - 40px);
-      max-width: 360px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .about-detail {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .about-detail:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    .detail-icon {
-      width: 42px;
-      height: 42px;
-      min-width: 42px;
-      background: rgba(91, 141, 239, 0.1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-size: 1rem;
-      transition: all 0.4s;
-    }
-
-    .about-detail:hover .detail-icon {
-      transform: scale(1.1) rotate(-5deg);
-      background: var(--accent);
-      color: var(--white);
-      box-shadow: 0 6px 16px rgba(91, 141, 239, 0.35);
-    }
-
-    .detail-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .detail-info label {
-      font-size: 0.68rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      line-height: 1;
-    }
-
-    .detail-info p {
-      font-size: 0.92rem;
-      color: var(--text);
-      font-weight: 500;
-      line-height: 1.3;
-      margin: 0;
-    }
-
-    .detail-info a {
-      font-size: 0.92rem;
-      color: var(--text);
-      font-weight: 500;
-      line-height: 1.3;
-      margin: 0;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .detail-info a:hover {
-      color: var(--accent);
+      filter: grayscale(0%) brightness(1.05);
+      transform: scale(1.05);
     }
 
     /* Highlight cards in about */
@@ -995,10 +943,6 @@
       background: linear-gradient(90deg, #A78BFA, #C084FC);
     }
 
-    .skill-category[data-color="orange"]::before {
-      background: linear-gradient(90deg, #F59E0B, #FB923C);
-    }
-
     .skill-cat-header {
       display: flex;
       align-items: center;
@@ -1042,11 +986,6 @@
       color: #A78BFA;
     }
 
-    .skill-category[data-color="orange"] .skill-cat-icon {
-      background: rgba(245, 158, 11, 0.15);
-      color: #F59E0B;
-    }
-
     .skill-items {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -1066,6 +1005,31 @@
       padding: 1.8rem 0.5rem;
       text-align: center;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .skill-badge::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(91, 141, 239, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .skill-badge:hover::after {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .skill-badge i {
@@ -1121,6 +1085,66 @@
       color: #4479A1;
     }
 
+    .logo-pytorch {
+      color: #EE4C2C;
+    }
+
+    .logo-scikit {
+      color: #F89939;
+    }
+
+    .logo-pandas {
+      color: #150458;
+    }
+
+    .logo-numpy {
+      color: #4D77CF;
+    }
+
+    .logo-opencv {
+      color: #5C3EE8;
+    }
+
+    .logo-bert {
+      color: #F4A261;
+    }
+
+    .logo-lstm {
+      color: #FF6B6B;
+    }
+
+    .logo-cnn {
+      color: #4ECDC4;
+    }
+
+    .logo-colab {
+      color: #F9AB00;
+    }
+
+    .logo-xampp {
+      color: #FB7A24;
+    }
+
+    .logo-bs4 {
+      color: #43B02A;
+    }
+
+    .logo-selenium {
+      color: #43B02A;
+    }
+
+    .logo-ocr {
+      color: #6366F1;
+    }
+
+    .logo-dataviz {
+      color: #E879F9;
+    }
+
+    .logo-webscrape {
+      color: #06B6D4;
+    }
+
     .skill-badge span {
       font-family: var(--font-mono);
       font-size: 0.85rem;
@@ -1132,36 +1156,63 @@
       transform: translateY(-8px);
       background: rgba(255, 255, 255, 0.05);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(91, 141, 239, 0.4);
     }
 
     .skill-badge:hover i {
       transform: scale(1.25) rotate(-5deg);
     }
 
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1.5rem;
-      transform: translateZ(15px);
+    .skill-badge:hover span {
+      color: var(--white);
     }
 
-    .skill-tag-mini {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 5px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      transition: all 0.3s;
-    }
-
-    .skill-tag-mini:hover {
-      background: rgba(91, 141, 239, 0.1);
-      border-color: rgba(91, 141, 239, 0.3);
+    /* Skill tooltip */
+    .skill-badge[data-tooltip]:hover::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 21, 32, 0.95);
+      backdrop-filter: blur(12px);
       color: var(--text);
-      transform: translateY(-2px);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(91, 141, 239, 0.3);
+      white-space: nowrap;
+      z-index: 20;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      animation: tooltipFade 0.25s ease forwards;
+    }
+
+    @keyframes tooltipFade {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* ── PROJECT ENHANCEMENTS ── */
+    .project-num {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: var(--font-head);
+      font-size: 4rem;
+      font-weight: 800;
+      color: rgba(91, 141, 239, 0.06);
+      line-height: 1;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* Projects */
@@ -1225,14 +1276,6 @@
       box-shadow: 0 8px 20px rgba(91, 141, 239, 0.4);
     }
 
-    .project-date {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.03);
-      padding: 6px 14px;
-      border-radius: 8px;
-    }
 
     .project-title {
       font-family: var(--font-head);
@@ -1267,27 +1310,6 @@
       opacity: 1;
     }
 
-    .project-link {
-      width: 38px;
-      height: 38px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .project-link:hover {
-      border-color: var(--accent);
-      color: var(--white);
-      background: rgba(91, 141, 239, 0.1);
-      transform: translateY(-2px);
-    }
 
     .project-desc {
       font-size: 1.05rem;
@@ -1840,6 +1862,11 @@
         margin-top: -30px;
       }
 
+      .about-visual::before,
+      .about-visual::after {
+        display: none !important;
+      }
+
       .skills-grid {
         grid-template-columns: 1fr;
       }
@@ -2089,15 +2116,15 @@
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-network-wired"></i> TensorFlow</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item"><i class="fas fa-language"></i> NLP</span>
+      <span class="marquee-item"><i class="fas fa-fire"></i> PyTorch</span>
+      <span class="marquee-dot"></span>
+      <span class="marquee-item"><i class="fas fa-table"></i> Pandas</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-flask"></i> Flask</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fab fa-github"></i> GitHub</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-database"></i> MySQL</span>
-      <span class="marquee-dot"></span>
-      <span class="marquee-item"><i class="fas fa-eye"></i> OpenCV</span>
       <span class="marquee-dot"></span>
       <!-- Duplicate for seamless loop -->
       <span class="marquee-item"><i class="fab fa-python"></i> Python</span>
@@ -2110,15 +2137,15 @@
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-network-wired"></i> TensorFlow</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item"><i class="fas fa-language"></i> NLP</span>
+      <span class="marquee-item"><i class="fas fa-fire"></i> PyTorch</span>
+      <span class="marquee-dot"></span>
+      <span class="marquee-item"><i class="fas fa-table"></i> Pandas</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-flask"></i> Flask</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fab fa-github"></i> GitHub</span>
       <span class="marquee-dot"></span>
       <span class="marquee-item"><i class="fas fa-database"></i> MySQL</span>
-      <span class="marquee-dot"></span>
-      <span class="marquee-item"><i class="fas fa-eye"></i> OpenCV</span>
       <span class="marquee-dot"></span>
     </div>
   </div>
@@ -2128,14 +2155,14 @@
     <h2 class="section-title reveal">Who I <span>Am</span></h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p class="justified-text">I'm a <strong>Computer Science Engineering graduate</strong> from <a
+        <p class="justified-text">Hey there! I'm a <strong>Computer Science Engineering graduate</strong> from <a
             href="https://www.juit.ac.in/" target="_blank" class="text-link">Jaypee University of Information
-            Technology</a> with a sharp focus on building software that actually matters. I don't just write code — I
-          engineer solutions that blend intelligent backend logic with interfaces people enjoy using.</p>
-        <p class="justified-text">From developing a <strong>multimodal AI system for mental health detection</strong> to
-          building an <strong>NLP-powered content moderation tool</strong>, I've consistently pushed boundaries at the
-          intersection of AI and real-world applications. Two internships in full-stack development taught me that the
-          best engineers are the ones who never stop learning.</p>
+            Technology</a>. I love building things that work well and look great, blending solid backend logic with
+          clean, modern interfaces.</p>
+        <p class="justified-text">I enjoy working on interesting challenges—like building a <strong>multimodal AI system
+            for mental health detection</strong> or an <strong>NLP-powered content moderation tool</strong>. Having
+          completed two full-stack development internships, I've learned how to build robust web applications from the
+          ground up and am always eager to pick up new technologies.</p>
 
         <div class="about-highlights">
           <div class="highlight-card">
@@ -2167,8 +2194,8 @@
             <div class="stat-label">Internships</div>
           </div>
           <div class="stat">
-            <div class="stat-num" data-target="2">0</div>
-            <div class="stat-label">AI Projects</div>
+            <div class="stat-num" data-target="3">0</div>
+            <div class="stat-label">Projects</div>
           </div>
           <div class="stat">
             <div class="stat-num" data-target="7.32" data-decimal="true">0</div>
@@ -2186,25 +2213,6 @@
           <img src="IMG-20250809-WA0007(1)~2(1)(1).jpg" alt="Nishant Gautam"
             onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop'" />
         </div>
-        <div class="about-card tilt-card">
-          <div class="about-detail">
-            <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
-            <div class="detail-info"><label>Degree</label>
-              <p>B.Tech — CSE</p>
-            </div>
-          </div>
-          <div class="about-detail">
-            <div class="detail-icon"><i class="fas fa-university"></i></div>
-            <div class="detail-info"><label>University</label><a href="https://www.juit.ac.in/" target="_blank">Jaypee
-                University of IT</a></div>
-          </div>
-          <div class="about-detail">
-            <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="detail-info"><label>Location</label><a
-                href="https://www.google.com/maps/search/?api=1&query=Solan,+Himachal+Pradesh,+India"
-                target="_blank">Solan, HP, India</a></div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -2214,6 +2222,7 @@
     <h2 class="section-title reveal">What I <span>Know</span></h2>
     <div class="skills-grid">
 
+      <!-- LANGUAGES -->
       <div class="skill-category tilt-card reveal" data-color="blue">
         <div class="skill-cat-header">
           <div class="skill-cat-title">
@@ -2222,12 +2231,53 @@
           </div>
         </div>
         <div class="skill-items">
-          <div class="skill-badge"><i class="fab fa-python logo-python"></i><span>Python</span></div>
-          <div class="skill-badge"><i class="fab fa-cuttlefish logo-cpp"></i><span>C++</span></div>
-          <div class="skill-badge"><i class="fab fa-cuttlefish logo-c"></i><span>C</span></div>
+          <a href="https://www.python.org/" target="_blank" class="skill-badge"
+            data-tooltip="General-purpose, high-level language"><i
+              class="fab fa-python logo-python"></i><span>Python</span></a>
+          <a href="https://cplusplus.com/" target="_blank" class="skill-badge"
+            data-tooltip="High-performance systems language"><i
+              class="fab fa-cuttlefish logo-cpp"></i><span>C++</span></a>
+          <a href="https://en.cppreference.com/w/c" target="_blank" class="skill-badge"
+            data-tooltip="Low-level procedural language"><i class="fab fa-cuttlefish logo-c"></i><span>C</span></a>
         </div>
       </div>
 
+      <!-- ML / AI FRAMEWORKS -->
+      <div class="skill-category tilt-card reveal" data-color="purple">
+        <div class="skill-cat-header">
+          <div class="skill-cat-title">
+            <div class="skill-cat-icon"><i class="fas fa-brain"></i></div>
+            ML / AI
+          </div>
+        </div>
+        <div class="skill-items">
+          <a href="https://www.tensorflow.org/" target="_blank" class="skill-badge"
+            data-tooltip="End-to-end ML platform by Google"><i
+              class="fas fa-network-wired logo-tf"></i><span>TensorFlow</span></a>
+          <a href="https://pytorch.org/" target="_blank" class="skill-badge"
+            data-tooltip="Deep learning framework (familiar)"><i
+              class="fas fa-fire logo-pytorch"></i><span>PyTorch</span></a>
+          <a href="https://scikit-learn.org/" target="_blank" class="skill-badge"
+            data-tooltip="Classical ML library for Python"><i
+              class="fas fa-gears logo-scikit"></i><span>Scikit-learn</span></a>
+          <a href="https://opencv.org/" target="_blank" class="skill-badge"
+            data-tooltip="Computer vision & image processing"><i
+              class="fas fa-eye logo-opencv"></i><span>OpenCV</span></a>
+          <a href="https://huggingface.co/docs/transformers/model_doc/bert" target="_blank" class="skill-badge"
+            data-tooltip="Bidirectional NLP transformer model"><i
+              class="fas fa-language logo-bert"></i><span>BERT</span></a>
+          <a href="https://en.wikipedia.org/wiki/Long_short-term_memory" target="_blank" class="skill-badge"
+            data-tooltip="Recurrent neural network architecture"><i
+              class="fas fa-wave-square logo-lstm"></i><span>LSTM</span></a>
+          <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" target="_blank" class="skill-badge"
+            data-tooltip="Image classification neural networks"><i
+              class="fas fa-layer-group logo-cnn"></i><span>CNN</span></a>
+          <a href="https://www.nltk.org/" target="_blank" class="skill-badge"
+            data-tooltip="Natural Language Processing"><i class="fas fa-comment-dots logo-nlp"></i><span>NLP</span></a>
+        </div>
+      </div>
+
+      <!-- WEB DEVELOPMENT -->
       <div class="skill-category tilt-card reveal" data-color="green">
         <div class="skill-cat-header">
           <div class="skill-cat-title">
@@ -2236,34 +2286,18 @@
           </div>
         </div>
         <div class="skill-items">
-          <div class="skill-badge"><i class="fab fa-html5 logo-html"></i><span>HTML/CSS</span></div>
-          <div class="skill-badge"><i class="fab fa-js logo-js"></i><span>JavaScript</span></div>
-          <div class="skill-badge"><i class="fas fa-flask logo-flask"></i><span>Flask</span></div>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="skill-badge"
+            data-tooltip="Markup & styling for the web"><i class="fab fa-html5 logo-html"></i><span>HTML/CSS</span></a>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-badge"
+            data-tooltip="Dynamic web programming language"><i class="fab fa-js logo-js"></i><span>JavaScript</span></a>
+          <a href="https://flask.palletsprojects.com/" target="_blank" class="skill-badge"
+            data-tooltip="Lightweight Python web framework"><i
+              class="fas fa-flask logo-flask"></i><span>Flask</span></a>
         </div>
       </div>
 
-      <div class="skill-category tilt-card reveal" data-color="purple">
-        <div class="skill-cat-header">
-          <div class="skill-cat-title">
-            <div class="skill-cat-icon"><i class="fas fa-brain"></i></div>
-            AI / ML
-          </div>
-        </div>
-        <div class="skill-items">
-          <div class="skill-badge"><i class="fas fa-network-wired logo-tf"></i><span>TensorFlow</span></div>
-          <div class="skill-badge"><i class="fas fa-language logo-nlp"></i><span>NLP/BERT</span></div>
-          <div class="skill-badge"><i class="fas fa-project-diagram logo-nn"></i><span>LSTM/CNN</span></div>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag-mini">OCR</span>
-          <span class="skill-tag-mini">OpenCV</span>
-          <span class="skill-tag-mini">Librosa</span>
-          <span class="skill-tag-mini">MFCC</span>
-          <span class="skill-tag-mini">Pandas</span>
-        </div>
-      </div>
-
-      <div class="skill-category tilt-card reveal" data-color="orange">
+      <!-- TOOLS & PLATFORMS -->
+      <div class="skill-category tilt-card reveal" data-color="blue">
         <div class="skill-cat-header">
           <div class="skill-cat-title">
             <div class="skill-cat-icon"><i class="fas fa-screwdriver-wrench"></i></div>
@@ -2271,15 +2305,23 @@
           </div>
         </div>
         <div class="skill-items">
-          <div class="skill-badge"><i class="fab fa-github logo-git"></i><span>Git/GitHub</span></div>
-          <div class="skill-badge"><i class="fas fa-code logo-vscode"></i><span>VS Code</span></div>
-          <div class="skill-badge"><i class="fas fa-database logo-mysql"></i><span>MySQL</span></div>
-        </div>
-        <div class="skill-tags">
-          <span class="skill-tag-mini">Google Colab</span>
-          <span class="skill-tag-mini">XAMPP</span>
-          <span class="skill-tag-mini">Selenium</span>
-          <span class="skill-tag-mini">BeautifulSoup</span>
+          <a href="https://git-scm.com/" target="_blank" class="skill-badge"
+            data-tooltip="Version control & collaboration"><i class="fab fa-git-alt logo-git"></i><span>Git</span></a>
+          <a href="https://github.com/" target="_blank" class="skill-badge"
+            data-tooltip="Code hosting & collaboration platform"><i
+              class="fab fa-github logo-git"></i><span>GitHub</span></a>
+          <a href="https://www.mysql.com/" target="_blank" class="skill-badge"
+            data-tooltip="Relational database management system"><i
+              class="fas fa-database logo-mysql"></i><span>MySQL</span></a>
+          <a href="https://code.visualstudio.com/" target="_blank" class="skill-badge"
+            data-tooltip="Lightweight code editor by Microsoft"><i class="fas fa-code logo-vscode"></i><span>VS
+              Code</span></a>
+          <a href="https://colab.research.google.com/" target="_blank" class="skill-badge"
+            data-tooltip="Cloud-based Jupyter notebooks"><i class="fas fa-laptop-code logo-colab"></i><span>Google
+              Colab</span></a>
+          <a href="https://www.apachefriends.org/" target="_blank" class="skill-badge"
+            data-tooltip="Local PHP/MySQL dev environment"><i
+              class="fas fa-server logo-xampp"></i><span>XAMPP</span></a>
         </div>
       </div>
 
@@ -2290,18 +2332,16 @@
     <div class="section-label reveal">Featured Work</div>
     <h2 class="section-title reveal">My <span>Projects</span></h2>
     <div class="projects-grid">
+
+      <!-- PROJECT 1 -->
       <div class="project-card tilt-card reveal">
+        <div class="project-num">01</div>
         <div class="project-header">
           <div class="project-icon"><i class="fas fa-shield-halved"></i></div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div class="project-date">Jan 2025 – May 2025</div>
-            <a href="https://github.com/nishant-gautam1/Racism-and-Misogyny-Detection-in-Memes" target="_blank"
-              class="project-link" title="View Code"><i class="fab fa-github"></i></a>
-          </div>
         </div>
         <div class="project-title">
           <a href="https://github.com/nishant-gautam1/Racism-and-Misogyny-Detection-in-Memes" target="_blank">
-            Racism &amp; Misogyny Detection <i class="fas fa-external-link-alt"></i>
+            Racism &amp; Misogyny Detection <i class="fab fa-github"></i>
           </a>
         </div>
         <div class="project-desc justified-text">
@@ -2314,18 +2354,16 @@
           <span class="stack-tag">BeautifulSoup</span><span class="stack-tag">Selenium</span>
         </div>
       </div>
+
+      <!-- PROJECT 2 -->
       <div class="project-card tilt-card reveal">
+        <div class="project-num">02</div>
         <div class="project-header">
           <div class="project-icon"><i class="fas fa-heart-pulse"></i></div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div class="project-date">Aug 2025 – May 2026</div>
-            <a href="https://github.com/nishant-gautam1/Multimodal-AI-for-Early-Mental-Health-Detection" target="_blank"
-              class="project-link" title="View Code"><i class="fab fa-github"></i></a>
-          </div>
         </div>
         <div class="project-title">
           <a href="https://github.com/nishant-gautam1/Multimodal-AI-for-Early-Mental-Health-Detection" target="_blank">
-            Multimodal AI Mental Health Detection <i class="fas fa-external-link-alt"></i>
+            Multimodal AI Mental Health Detection <i class="fab fa-github"></i>
           </a>
         </div>
         <div class="project-desc justified-text">
@@ -2339,6 +2377,30 @@
           <span class="stack-tag">CNN</span><span class="stack-tag">OpenCV</span><span class="stack-tag">Flask</span>
         </div>
       </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-card tilt-card reveal">
+        <div class="project-num">03</div>
+        <div class="project-header">
+          <div class="project-icon"><i class="fas fa-calendar-check"></i></div>
+        </div>
+        <div class="project-title">
+          <a href="https://github.com/nishant-gautam1/event-management-platform" target="_blank">
+            Event Management Platform <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="project-desc justified-text">
+          An interactive, responsive full-stack event hosting platform with 3D animations, glassmorphic design, and
+          real-time registrations. Features a secure admin panel with statistics dashboard, attendee management, and a
+          dual-layer MySQL/SQLite database with automatic fallback.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span><span class="stack-tag">Flask</span><span
+            class="stack-tag">MySQL</span><span class="stack-tag">SQLite</span>
+          <span class="stack-tag">HTML/CSS</span><span class="stack-tag">JavaScript</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -2715,6 +2777,8 @@
 
     const statsSection = document.querySelector('.about-stats');
     if (statsSection) statsObserver.observe(statsSection);
+
+
   </script>
 </body>
 
